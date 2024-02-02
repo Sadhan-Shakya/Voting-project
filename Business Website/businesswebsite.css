@@ -1,0 +1,227 @@
+
+body{
+    background-color: rgb(44, 38, 38);
+    display: flex;
+    color: rgb(255, 255, 255);
+    font-family:"Work sans",sans-serif;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    
+    
+}
+.container{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+   
+}
+
+.navigation ul{
+    list-style-type: none;
+    display: flex;
+    padding-left: 100px;
+    gap: 50px;
+    padding: 35px;
+   
+    background-color: rgb(227, 245, 231);
+    margin-top: 0;
+    margin-bottom: 0;
+
+
+}
+
+.navigation ul li a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size:19px;
+    text-transform: uppercase; 
+}
+
+
+.intro{
+    background-image: url(/image/green\ tim-mossholder-07uiqD9LS6U-unsplash.jpg); height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -79px;
+    padding-bottom: 50px;
+   
+    
+}
+.logos{
+    display: flex;
+    padding-left: 87%;
+    gap:8px;
+    
+    
+}
+.who{
+    font-size:47px;
+    color: rgb(255, 255, 255);
+    padding: 200px 0 0 200px;
+    
+    
+}
+.loream{
+    color: rgb(255, 255, 255);
+    padding-left: 200px;
+}
+.btn1{
+
+padding:12px 40px ;
+background-color: #dde8db;
+cursor: pointer;
+font-size: 17px;
+
+}
+.btn{
+    padding-left: 200px;
+    padding-top: 45px;
+    
+}
+.img1{
+    padding-left: 100px;
+}
+.img2{
+    padding-left: 75px;
+    padding-top: 5px;
+}
+.img3{
+    padding-left: 70px;
+    padding-top: 5px;
+    
+}
+.services{
+    display: flex;
+    gap: 230px;
+    padding-left: 110px;
+    padding-top: 150px;
+}
+.B{
+    padding-left: 50px;
+    padding-top: 9px;
+}
+.G{
+    padding-left: 15px;
+    padding-top: 20px;
+    
+}
+.T{
+    padding-top: 20px;
+}
+.P{
+    padding-top: 13px;
+   
+    
+}
+.P1{padding-top: 13px;
+    padding-right: px;
+   
+}
+.Handi{
+    text-align: center;
+    padding-top: 200px;
+    font-size:large;
+}
+.Collection{
+    text-align: center;
+    font-size:50px;
+  
+    
+}
+.picture{
+ display: flex;
+ gap: 150px;
+ padding-left: 50px;
+ padding-top: 55px;
+ 
+
+}
+.ap{
+    text-align: center;
+    padding-top: 10px;
+}
+.btn2{
+    padding-left: 23px;
+    padding-top: 15px;
+   
+    
+
+}
+.b1{
+    text-align: center;
+    padding:12px 40px ;
+    background-color: #dde8db;
+    cursor: pointer;
+    font-size: 17px;
+    width: 200px;
+    
+}
+
+.logo1{
+    padding-left: 7px;
+    
+}
+
+.child{
+  padding-top: 200px;
+  padding-left: 80px;
+  
+    
+}
+
+.ma{
+    padding-left: 90px;
+    padding-top: 20%;
+    font-size:40px;
+}
+.at{
+    padding-left: 90px;
+    font-size:19px;
+    padding-top: 20px;
+}
+.in-making{
+    display: flex;
+
+}
+.b3{
+    text-align: center;
+    padding:12px 40px ;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-size: 17px;
+    width: 200px;
+    
+}
+.btn3{
+    padding-left: 88px;
+    padding-top: 20px;
+}
+.picture1{
+    display: flex;
+ gap: 150px;
+ padding-left: 50px;
+ padding-top: 150px;
+ 
+}
+.show{
+    padding-left: 100px;
+    padding-top: 70px;
+}
+.fot{
+    display: flex;
+    gap: 150px;
+   background-color: #4c534b;
+    margin-top: 200px;
+    line-height: 35px;
+    
+}
+.room{
+    padding-top:70px ;
+}
+.craft{
+    padding-top: 70px;
+    padding-left: 300px;
+}
