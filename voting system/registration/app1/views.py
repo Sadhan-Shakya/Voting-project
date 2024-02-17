@@ -39,3 +39,4 @@ def LoginPage(request):
 
 
     return render(request,'login.html')
+
