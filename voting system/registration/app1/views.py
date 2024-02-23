@@ -1,8 +1,9 @@
 from django.shortcuts import render,HttpResponse,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 
@@ -45,17 +46,27 @@ def LoginPage(request):
 
     return render(request,'login.html')
 
-def profile(request):
-    pass
+def LogoutPage(request):
+    logout(request)
+    return redirect('login')
+
+def view_profile(request):
+    return render(request,'profile.html')
 
 @login_required(login_url='login')
 def admin_dashboard(request):
+    if request.user.role != 'admin':
+        return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'admin_dashboard.html')
 
 @login_required(login_url='login')
 def candidate_dashboard(request):
+    if request.user.role != 'candidate':
+        return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'candidate_dashboard.html')
 
 @login_required(login_url='login')
 def voter_dashboard(request):
+    if request.user.role != 'voter':
+        return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'voter_dashboard.html')

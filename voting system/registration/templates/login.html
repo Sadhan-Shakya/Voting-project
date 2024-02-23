@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Design by foolishdeveloper.com -->
     <title>Login Page</title>
  
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -17,7 +16,6 @@
     <form method="post"  action="{% url 'login' %}">
         {% csrf_token %} 
         <h3>Login Here</h3>
-        
         
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" id="username" name="username">
