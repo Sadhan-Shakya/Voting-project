@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Design by foolishdeveloper.com -->
     <title>Login Page</title>
  
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -14,10 +13,9 @@
         <img src="/static/media/voter login 3.jpg " height="1000px">
     </div>
     <div class="background"></div>
-    <form method="post" >
+    <form method="post"  action="{% url 'login' %}">
         {% csrf_token %} 
         <h3>Login Here</h3>
-        
         
         <label for="username">Username</label>
         <input type="text" placeholder="Enter Username" id="username" name="username">
