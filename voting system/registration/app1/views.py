@@ -9,6 +9,19 @@ from django.contrib.auth.decorators import login_required
 def HomePage(request):
     return render(request,'home.html')
 
+def detail(request):
+    context = {}
+    return render(request,"detail.html")
+
+def result(request):
+    context = {}
+    return render(request,"request.html")
+
+def index(request):
+    context = {}
+    return render(request,"index.html")
+
+
 def SignupPage(request):
     if request.method=='POST':
         uname=request.POST.get('username')
