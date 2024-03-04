@@ -4,23 +4,12 @@ from app1.emailbackend import  Emailbackend
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def HomePage(request):
     return render(request,'home.html')
-
-def detail(request):
-    context = {}
-    return render(request,"detail.html")
-
-def result(request):
-    context = {}
-    return render(request,"request.html")
-
-def index(request):
-    context = {}
-    return render(request,"index.html")
 
 
 def SignupPage(request):
@@ -63,8 +52,8 @@ def LogoutPage(request):
     logout(request)
     return redirect('login')
 
-def view_profile(request):
-    return render(request,'profile.html')
+# def view_profile(request):
+#     return render(request,'profile.html')
 
 @login_required(login_url='login')
 def admin_dashboard(request):
@@ -83,3 +72,15 @@ def voter_dashboard(request):
     if request.user.role != 'voter':
         return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'voter_dashboard.html')
+
+def profile(request):
+    #check if user is unthinticated 
+    if request.user.is_authenticated:
+        return render(request, 'profile.html')
+    else:
+        return redirect('login')
+
+def profile(request):
+    user = request.user
+    print("User:", user)  # Check the user object in the console
+    return render(request, 'profile.html', {'user': user})
