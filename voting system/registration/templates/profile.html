@@ -1,13 +1,12 @@
+{% extends "base.html"%}
 {% load static %}
 
-
-
+{% block content %}  
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Sacramento&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{% static 'male user.png' %}" type="image/x-icon">
     <title>View</title>
     <style>
@@ -18,7 +17,7 @@
         * {
             margin: 0;
             padding: 0;
-            font-family: montserrat, Arial, Helvetica, sans-serif;
+            /* font-family: montserrat, Arial, Helvetica, sans-serif; */
         }
 
         body {
@@ -165,3 +164,8 @@
     </main>
 </body>
 </html>
+
+{% endblock %}
+
+
+
