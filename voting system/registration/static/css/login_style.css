@@ -1,4 +1,4 @@
-body{
+/* body{
     background-color: rgba(37, 38, 38, 0.755);
 }
 *,
@@ -9,9 +9,9 @@ body{
     box-sizing: border-box;
 }
 
-/* body {
-    background-color: #080710;
-} */
+body {
+    background-color: #000000;
+} 
 
 .background {
     width: 430px;
@@ -114,4 +114,4 @@ button {
 
 .social i {
     margin-right: 4px;
-}
+} */

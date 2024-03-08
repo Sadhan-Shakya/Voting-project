@@ -16,3 +16,15 @@ urlpatterns=[
     path('events/',views.display_events,name='events'),
     path('dashboard/',views.display_dashboard,name='dashboard')
 ]
+    # path('admin_dashboard/',views.admin_dashboard,name='admin_dashboard'),
+    # path('candidate_dashboard/',views.candidate_dashboard,name='candidate_dashboard'),
+    path('voterdashboard/',views.voterdashboard,name='voterdashboard'),
+    path('profile/',views.profile,name='profile'),
+    path('next_page/',views.next_page,name='next_page'),
+    path('index/',views.index,name='index'),
+    
+    
+
+    
+
+]
