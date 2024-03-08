@@ -4,11 +4,13 @@ from app1.emailbackend import  Emailbackend
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def HomePage(request):
-    return render(request,'home.html')
+def lnding_page(request):
+    return render(request,'lnding_page.html')
+
 
 def SignupPage(request):
     if request.method=='POST':
@@ -38,7 +40,7 @@ def LoginPage(request):
             elif user_role == 'candidate':
                 return redirect('candidate_dashboard')
             elif user_role == 'voter':
-                return redirect('voter_dashboard')
+                return redirect('index')
             else:
                 return redirect('login')
         else:
@@ -49,24 +51,14 @@ def LoginPage(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+def voterdashboard(request):
+    return render(request,'voterdashboard.html')
 
-def view_profile(request):
+def next_page(request):
+    return render(request,'next_page.html')
+
+def profile(request):
     return render(request,'profile.html')
+def index(request):
+    return render(request,'index.html')
 
-@login_required(login_url='login')
-def admin_dashboard(request):
-    if request.user.role != 'admin':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'admin_dashboard.html')
-
-@login_required(login_url='login')
-def candidate_dashboard(request):
-    if request.user.role != 'candidate':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'candidate_dashboard.html')
-
-@login_required(login_url='login')
-def voter_dashboard(request):
-    if request.user.role != 'voter':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'voter_dashboard.html')

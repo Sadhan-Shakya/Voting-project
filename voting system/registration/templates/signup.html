@@ -2,35 +2,209 @@
 <html lang="en">
 <head>
     <title>Signup Page</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/signup.css">
-    <!--Stylesheet-->
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .image-container {
+            flex-basis: 90%;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .signup-form-container {
+            flex-basis: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            width: 80%;
+            background-color: rgba(255, 255, 255, 0.13);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 50px 35px;
+            max-width: 100%;
+        }
+
+        form * {
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        form h3 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        input {
+            display: block;
+            height: 40px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 2px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        ::placeholder {
+            color: #e5e5e5;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: auto; /* Shifts the button to the right */
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .d-none {
+            display: none; /* Initially hide error messages */
+        }
+
+        @media(max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .image-container,
+            .signup-form-container {
+                flex-basis: 100%;
+            }
+
+            .image-container img {
+                height: 50vh;
+                object-fit: cover;
+            }
+
+            form {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="image">
-        <img src="/static/media/reg voting 1.webp" height="880px">
+    <div class="container">
+        <div class="image-container">
+            <img src="/static/prople vote 1.jpeg" alt="Signup Image">
+        </div>
+        <div class="signup-form-container">
+            <form id="signupForm" action="#" method="post">
+                {% csrf_token %} 
+                <h3>Signup Here</h3>
+                <label for="username">Username</label>
+                <input type="text" placeholder="Username" name="username" id="username">
+                <div id="usernameError" class="invalid-feedback d-none">
+                    Username must be at least 5 characters long.
+                </div>
+                <label for="email">Email</label>
+                <input type="email" placeholder="Email or Phone" name="email" id="email">
+                <div id="emailError" class="invalid-feedback d-none">
+                    Please enter a valid email address.
+                </div>
+                <label for="password1">Password</label>
+                <input type="password" placeholder="Password" id="password1" name="password1">
+                <div id="passwordError" class="invalid-feedback d-none">
+                    Password must contain at least 8 characters, at least one uppercase, one lowercase, one number, one special character.
+                </div>
+                <label for="password2">Confirm Password</label>
+                <input type="password" placeholder="Confirm Password" id="password2" name="password2">
+                <button type="submit">Signup</button>
+                <a href="{% url 'login' %}" >I already have an account</a>
+            </form>
+        </div>
     </div>
-    <form action="#" method="post">
-        {% csrf_token %} 
-        <h3>Signup Here</h3>
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#signupForm').submit(function(e) {
+                // Validate username length
+                var username = $('#username').val();
+                if (username.length < 5) {
+                    $('#usernameError').removeClass('d-none'); // Show the error message
+                    $('#username').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
+                    e.preventDefault(); // Prevent form submission
+                }
 
-        <label for="username">Username</label>
-        <input type="text" placeholder="Username" name="username" id="username">
+                // Validate email format
+                var email = $('#email').val();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    $('#emailError').removeClass('d-none'); // Show the error message
+                    $('#email').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
+                    e.preventDefault(); // Prevent form submission
+                }
 
-        <label for="email">Email</label>
-        <input type="email" placeholder="Email or Phone" name="email" id="email">
+                // Validate password format
+                var password = $('#password1').val();
+                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!passwordRegex.test(password)) {
+                    $('#passwordError').removeClass('d-none'); // Show the error message
+                    $('#password1').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
+                    e.preventDefault(); // Prevent form submission
+                }
+            });
 
-        <label for="password1">Password</label>
-        <input type="password" placeholder="Password" id="password1" name="password1">
-
-        <label for="password2">Confrom Password</label>
-        <input type="password" placeholder="Confrom Password" id="password2" name="password2">
-        
-        <button type="submit">Signup</button>
-        
-        <a href="{% url 'login' %}" >I already have an account</a>
-    </form>
+            // Handle input events for all fields to hide error messages
+            $('input').on('input', function() {
+                var inputId = $(this).attr('id');
+                var errorId = '#' + inputId + 'Error';
+                $(errorId).addClass('d-none'); // Hide the error message
+                $(this).removeClass('is-invalid'); // Remove Bootstrap is-invalid class
+            });
+        });
+    </script>
 </body>
 </html>

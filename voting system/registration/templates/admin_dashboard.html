@@ -1,5 +1,104 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>admin</h1>
+<div class="container-fluid px-4">
+    <div class="row g-3 my-2">
+        <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">7200</h3>
+                    <p class="fs-5">Voters</p>
+                </div>
+                <i class="fas fa-users fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">6899</h3>
+                    <p class="fs-5">Total votes</p>
+                </div>
+                <i class="fas fa-vote-yea  fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">8</h3>
+                    <p class="fs-5">Events</p>
+                </div>
+                <i class="far fa-calendar-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                <div>
+                    <h3 class="fs-2">10</h3>
+                    <p class="fs-5">Candidates</p>
+                </div>
+                <i class="fas fa-user-tie fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row my-5">
+        <h3 class="fs-4 mb-3">Recent votes</h3>
+        <div class="col">
+            <table class="table bg-white rounded shadow-sm  table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" width="50">#</th>
+                        <th scope="col">Candidate</th>
+                        <th scope="col">Voter</th>
+                        <th scope="col">Voted Date</th>
+                        <th scope="col">Voted Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>John Doe</td>
+                        <td>Alice Smith</td>
+                        <td>2024-02-22</td>
+                        <td>10:30:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jane Smith</td>
+                        <td>Bob Johnson</td>
+                        <td>2024-02-21</td>
+                        <td>15:45:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Michael Jackson</td>
+                        <td>Emily Brown</td>
+                        <td>2024-02-20 </td>
+                        <td>08:20:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>John Doe</td>
+                        <td>David Wilson</td>
+                        <td>2024-02-19</td>
+                        <td>11:10:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Christopher Nolan</td>
+                        <td>Sophia Miller</td>
+                        <td>2024-02-18</td>
+                        <td>14:00:00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
