@@ -21,7 +21,6 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        /* background: url('static/media/hands\ vote\ card.jpg'); */
         background-size: cover;
         background-position: center;
       }
@@ -45,6 +44,14 @@
         font-weight: 800;
         letter-spacing: 1px;
       }
+      .img{
+        height: 400px;
+        width: 100%;
+        background: url('static/media/vote.png');
+        background-size: cover;
+        background-position: center;
+        margin-left: 7%;
+      }
 
       header .navigation a{
         color: #000;
@@ -65,9 +72,13 @@
       }
 
       .content{
-        max-width: 650px;
-        margin: 60px 100px;
-        margin-top: 100px;
+        display: flex;
+        max-width: 100%;
+        margin: 0px 100px;
+      }
+      .info{
+        max-width: 50%;
+        padding-top: 80px;
       }
 
       .content .info h2{
@@ -199,11 +210,10 @@
           <p>Introducing our user-friendly online voting platform! Say goodbye to queues and paper ballots. Cast your vote from anywhere, hassle-free. Your voice matters more than ever!</p>
           <a href="next_page.html" class="info-btn">How to vote</a>
         </div>
-      </div>
-      <div>
-        <p></p>
-      </div>
-      
+        <div class="img">
+          <img src="media/hands up.jpeg" alt="">
+        </div>
+      </div>      
     </section>
 
   </body>

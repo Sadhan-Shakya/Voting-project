@@ -70,3 +70,21 @@ def voter_dashboard(request):
     if request.user.role != 'voter':
         return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'voter_dashboard.html')
+
+
+def display_users(request):
+    return render(request,'users.html')
+
+def display_dashboard(request):
+    return render(request,'dashboard.html')
+
+
+def display_analytics(request):
+    return render(request,'analytics.html')
+
+
+def display_report(request):
+    return render(request,'report.html')
+
+def display_events(request):
+    return render(request,'events.html')
