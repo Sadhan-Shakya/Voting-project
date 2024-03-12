@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Website Landing Page Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
@@ -58,6 +61,24 @@
         transition: 0.3s;
         transition-property: background;
       }
+
+      .mid_heading{
+      color: #226A80;
+      text-align: center;
+      margin-top: 80px;
+
+      }
+      .mid_paragraph{
+        font-size: 23px;
+        padding-left: 80px;
+        padding-right: 80px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        
+      }
+
+        
+      
 
       
 
@@ -130,6 +151,8 @@
       background-image: url('/static/hand up card.jpg'); /* Adjust the path as per your project structure */
       background-size: cover;
       background-position: center;
+      border-bottom-left-radius: 90px;
+      border-bottom-right-radius: 90px;
 }
 
 
@@ -197,7 +220,7 @@
       
       
       <header>
-        <h2><a href="#" class="logo">Vote</a></h2>
+        <h2><a href="#" class="logo">Voton</a></h2>
         
         
         <div class="navigation">
@@ -210,15 +233,144 @@
         <div class="info">
           <h2>Online Voting <br><span class="text">Be Creative! </span></h2>
           <p>Introducing our user-friendly online voting platform! Say goodbye to queues and paper ballots. Cast your vote from anywhere, hassle-free. Your voice matters more than ever!</p>
-          <a href="/next-page/" class="info-btn">How to vote</a>
+          <a href="/next-page/" class="info-btn">Scroll Down</a>
 
         </div>
       </div>
       <div>
         <p></p>
       </div>
+
+      
       
     </section>
+    <div class="mid_part">
+      <h1 class="mid_heading">Let's make voting easier</h1>
+      <p class="mid_paragraph">To streamline the voting process, we propose implementing a user-friendly interface accessible via mobile devices and desktops. This interface will allow voters to securely cast their votes with ease, providing clear instructions. Additionally, incorporating features such as real-time updates on voter turnout and results would enhance transparency and engagement. Through intuitive design and robust security measures, our goal is to empower every eligible voter to participate confidently, fostering a more inclusive and efficient voting experience for all.</p>
+
+    </div>
+    
+
+    <div class="container-fluid px-0 my-5">
+      {% comment %} container fluid lae imagr lai last samma extend gari deyo and my-4 lae chai  mathi and tala ko margin milako image ko and px 0 lae chaipadding left and write hatako   {% endcomment %}
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators ">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/static/vote_dash1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Let's make voting easier</h5>
+              <p>Simplify the voting process for improved effectiveness.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="/static/vote_dash3.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Let's make voting easier</h5>
+              <p>Simplify the voting process for improved effectiveness.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="/static/vote_dash2.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Let's make voting easier</h5>
+              <p>Simplify the voting process for improved effectiveness.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      
+    
+    <div class="container my-3">
+    <h1 class="my-5  text-center">Benefits of Online Voting<br> Every Vote Counts!</h2>
+    
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+           <img src="/static/album1.jpg">
+            <div class="card-body">
+              <p class="card-text my-3 "><b>1.No need for Paper Ballots</b><br>Online voting eliminates the need for paper ballots, offering convenience, accessibility, and efficiency. </p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/static/album2.jpg">
+            <div class="card-body">
+              <p class="card-text my-3"><b>2.Accessibility and Convenience</b><br>Voting via devices revolutionizes the process, offering accessibility and convenience. With a tap, every voice counts</p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/static/album 3.jpg">
+            <div class="card-body my-3">
+              <p class="card-text"><b>3.Secure</b><br>Voting via secure devices ensures the integrity of the process.Guaranteeing the accuracy and reliability of the results.
+    
+    
+    
+    
+              </p>
+    
+            </div>
+          </div>
+        </div>
+    
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/static/album4.jpg">       
+             <div class="card-body my-3">
+              <p class="card-text"><b>4. Reliable technical support</b><br>Online voting platforms offer reliable technical support, ensuring smooth participation without hindrances.
+    
+    
+    
+    
+              </p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/static/album5.jpg">
+              <div class="card-body my-3">
+              <p class="card-text"><b>5.No need for Paper Ballots</b><br>Digital voting replaces paper, ensuring a streamlined and efficient process supported by reliable technical assistance.</p>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="/static/album6.jpg">        
+            <div class="card-body my-3">
+              <p class="card-text"><b>6.Digital Access</b><br>With digital voting, everyone is ready to participate, thanks to its accessible and user-friendly nature.</p>
+              
+            </div>
+          </div>
+        </div>
+    
+        
+      </div>
+    </div>
+    <footer class="bg-dark text-light text-center py-5">
+      <div class="container">
+        <p>&copy; 2024 VotingSystem. All Rights Reserved.</p>
+      </div>
+    </footer>
 
   </body>
 </html>

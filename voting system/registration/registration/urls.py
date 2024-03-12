@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-   
     path('',include('app1.urls')),
     path('',views.landing_page,name='landing_page'),
     
