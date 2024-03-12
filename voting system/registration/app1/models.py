@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
+
 # Create your models here.
 from django.contrib.auth.models import AbstractUser,Group,Permission
 
@@ -22,3 +23,29 @@ class Profile(models.Model):
         related_name='profile'
     )
     image = models.ImageField(upload_to='pics', default='default.svg')
+
+class Category(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    total_vote = models.IntegerField(default=0)
+    voters = models.ManyToManyField(User, blank=True)
+    
+    def __str__(self):
+        return self.title
+    voters = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='category_votes')
+    
+
+class CategoryItem(models.Model):
+    title = models.CharField(max_length=200)
+    total_vote = models.IntegerField(default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="items")
+    voters = models.ManyToManyField(User, blank=True)
+
+    
+    def __str__(self):
+        return self.title
+    
+    voters = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    
+    
