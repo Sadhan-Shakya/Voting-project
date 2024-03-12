@@ -40,7 +40,7 @@ def LoginPage(request):
             elif user_role == 'candidate':
                 return redirect('candidate_dashboard')
             elif user_role == 'voter':
-                return redirect('index')
+                return redirect('voterdashboard')
             else:
                 return redirect('login')
         else:
@@ -59,6 +59,6 @@ def next_page(request):
 
 def profile(request):
     return render(request,'profile.html')
-def index(request):
-    return render(request,'index.html')
+# def index(request):
+#     return render(request,'index.html')
 
