@@ -4,17 +4,15 @@ from app1.emailbackend import  Emailbackend
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
+from django.views import View
+from .forms import AddUserForm
+
+from .models import UserModel
 
 # Create your views here.
-
 def landing_page(request):
     return render(request,'landing_page.html')
-
-def indexx(request):
-    pass
-
-def home(request):
-    return render(request,'index.html')
 
 def SignupPage(request):
     if request.method=='POST':
@@ -55,43 +53,75 @@ def LoginPage(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
-
-def view_profile(request):
-    return render(request,'profile.html')
-
-@login_required(login_url='login')
-def admin_dashboard(request):
-    if request.user.role != 'admin':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'admin_dashboard.html')
-
-@login_required(login_url='login')
-def candidate_dashboard(request):
-    if request.user.role != 'candidate':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'candidate_dashboard.html')
-
-@login_required(login_url='login')
 def voter_dashboard(request):
     return render(request,'voter_dashboard.html')
 
+def next_page(request):
+    return render(request,'next_page.html')
 
-def display_users(request):
+def profile(request):
+    return render(request,'profile.html')
+# def index(request):
+#     return render(request,'index.html')
+
+def users_view(request):
     return render(request,'users.html')
 
-def display_dashboard(request):
-    return render(request,'dashboard.html')
-
-
-def display_analytics(request):
+def analytics_view(request):
     return render(request,'analytics.html')
 
 
-def display_report(request):
+def report_view(request):
     return render(request,'report.html')
 
-def display_events(request):
-    return render(request,'events.html')
+# class Users(View):
+#     def get(self, request):
+#         stu_data = Student.objects.all()
+#         return render(request, 'users.html', {'studata':stu_data})
+    
+class Users(View):#crud opeation ko lagi nai ho
+    def get(self, request):
+        UserModel_data = UserModel.objects.all()
+        return render(request, 'users.html', {'UserModeldata':UserModel_data})
+    
+# class Users(View):
+#     def get(self, request):
+#         Custom_User = CustomUser.objects.all()
+#         return render(request, 'users.html', {'Custom_data': Custom_User})
+    
+class Add_UserModel(View):
+    def get(self, request):
+        fm = AddUserForm()
+        return render(request, 'add_user.html',{'form':fm})
+    
+    def post(self, request):
+        fm = AddUserForm(request.POST)
+        if fm.is_valid():
+            fm.save()
+            return redirect('users')
+        else:
+            return render(request, 'add_user.html',{'form':fm})
 
-def next_page(request):
-    pass
+# class Add_UserModel(View):
+class Delete_UserModel(View):
+    def post(self, request):
+        data = request.POST
+        id = data.get('id')
+        UserModeldata = UserModel.objects.get(id=id)
+        UserModeldata.delete()
+        return redirect('users')
+
+class Edit_UserModel(View):
+    def get(self, request, id):
+        userm = UserModel.objects.get(id=id)
+        fm = AddUserForm(instance=userm)
+        return render(request, 'edit_usermodel.html', {'form':fm})
+    
+    def post(self, request, id):
+        userm = UserModel.objects.get(id=id)
+        fm = AddUserForm(request.POST, instance=userm)
+        if fm.is_valid():
+            fm.save()
+            return redirect('users')
+
+
