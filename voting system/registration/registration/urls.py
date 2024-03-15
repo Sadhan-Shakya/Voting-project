@@ -25,5 +25,6 @@ urlpatterns = [
     path('',include('app1.urls')),
     path('',views.landing_page,name='landing_page'),
     
+    
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
