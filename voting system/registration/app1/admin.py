@@ -4,6 +4,8 @@ from .models import CustomUser
 from .models import Profile
 from .models import Category, CategoryItem
 
+from .models import UserModel
+
 
 class UserModel(UserAdmin):
     list_display=['username','email','role']
@@ -17,3 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(CategoryItem)
+
+
+
+# 

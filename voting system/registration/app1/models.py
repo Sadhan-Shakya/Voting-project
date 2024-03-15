@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-
 # Create your models here.
 from django.contrib.auth.models import AbstractUser,Group,Permission
 
@@ -14,7 +13,15 @@ class CustomUser(AbstractUser):
     ]
 
     role = models.CharField(max_length=40, choices=ROLES,default='voter')
-    profile_pic=models.ImageField(upload_to='profile_images/profile_pic')
+    # profile_pic=models.ImageField(upload_to='profile_images/profile_pic')
+    def save(self, *args, **kwargs):
+        UserModel.objects.create(
+            username=self.username,
+            email=self.email,
+            role=self.role
+        )
+        super().save(*args, **kwargs)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -47,5 +54,9 @@ class CategoryItem(models.Model):
         return self.title
     
     voters = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
     
-    
+class UserModel(models.Model): #for crud operation making a table usermodel for inside email all
+    username = models.CharField(max_length=60)
+    email = models.CharField(max_length=100)  # Assuming email can be stored as a string
+    role = models.CharField(max_length=100)
