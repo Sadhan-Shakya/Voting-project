@@ -1,15 +1,17 @@
+from django.forms import ModelForm
 from django import forms
-from .models import UserModel
 
+from .models import CustomUser
 
-class AddUserForm(forms.ModelForm):
+class AddUserForm(ModelForm):
     
     class Meta:
-        model = UserModel
-        fields = ("username","email","role")
+        model = CustomUser
+        fields =('username', 'email', 'password', 'role')
         widgets = {
             'username':forms.TextInput(attrs={'class':'form-control'}),
             'email':forms.TextInput(attrs={'class':'form-control'}),
-            'role':forms.TextInput(attrs={'class':'form-control'}),
+            'password':forms.PasswordInput(attrs={'class':'form-control'}),
+            'role':forms.Select(attrs={'class':'form-control'}),
         }
 
