@@ -13,7 +13,7 @@ class Emailbackend(ModelBackend):
                 print("Found user by username:", user)
             except UserModel.DoesNotExist:
                 print("User not found")
-                return None
+                return None 
         
         if user.check_password(password):
             print("Stored hashed password:", user.password)
