@@ -1,12 +1,14 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
-from .models import CustomUser
+from .models import CustomUser,Poll,PollOptions
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from .forms import AddUserForm
+from .forms import AddUserForm,PollForm,PollOptionFormset
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -57,19 +59,19 @@ def LogoutPage(request):
 def view_profile(request):
     return render(request,'profile.html')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def admin_dashboard(request):
     if request.user.role != 'admin':
         return HttpResponseForbidden("You are not authorized to access this page.")
     return render(request,'admin_dashboard.html')
 
-@login_required(login_url='login')
-def candidate_dashboard(request):
-    if request.user.role != 'candidate' and request.user.role !='admin':
-        return HttpResponseForbidden("You are not authorized to access this page.")
-    return render(request,'candidate_dashboard.html')
+# @login_required(login_url='login')
+# def candidate_dashboard(request):
+#     if request.user.role != 'candidate' and request.user.role !='admin':
+#         return HttpResponseForbidden("You are not authorized to access this page.")
+#     return render(request,'candidate_dashboard.html')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def voter_dashboard(request):
     return render(request,'voter_dashboard.html')
 
@@ -87,7 +89,8 @@ def users_view(request):
 def analytics_view(request):
     return render(request,'analytics.html')
 
-
+def display_events(request):
+    return render(request,'events.html')
 def report_view(request):
     return render(request,'report.html')
     
@@ -97,8 +100,6 @@ class Users(View):#crud opeation ko lagi nai ho
         return render(request, 'users.html', {'UserModeldata':UserModel_data})
     
     
-from django.contrib.auth.hashers import make_password
-from django.shortcuts import redirect
 
 class Add_UserModel(View):
     def get(self, request):
@@ -142,5 +143,38 @@ class Edit_UserModel(View):
             fm.instance.password = hashed_password
             fm.save()
             return redirect('users')
+        
+class Polls(View):
+    def get(self,request):
+        poll_data = Poll.objects.all()
+        poll_options_data = PollOptions.objects.all()
+
+        return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+    
+
+def create_poll(request):
+    if request.method == 'POST':
+        poll_form = PollForm(request.POST)
+        option_formset = PollOptionFormset(request.POST)
+
+        if poll_form.is_valid() and option_formset.is_valid():
+            poll = poll_form.save()
+            options = option_formset.save(commit=False)
+            for option in options:
+                option.poll = poll
+                option.save()
+            return redirect('events')
+    else:
+        poll_form = PollForm()
+        option_formset = PollOptionFormset()
+
+        return render(request, 'create_poll.html', {'poll_form': poll_form, 'option_formset': option_formset})
+
+
+
+
+
+
+
 
 
