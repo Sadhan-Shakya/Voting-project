@@ -7,7 +7,7 @@ class AddUserForm(ModelForm):
     
     class Meta:
         model = CustomUser
-        fields =('username', 'email', 'password', 'role',"password")
+        fields =('username', 'email', 'password', 'role')
         widgets = {
             'username':forms.TextInput(attrs={'class':'form-control'}),
             'email':forms.TextInput(attrs={'class':'form-control'}),
@@ -22,12 +22,6 @@ class PollForm(ModelForm):
         widgets = {
             'Question':forms.TextInput(attrs={'class':'form-control'}),
         }
-
-PollOptionFormset = forms.inlineformset_factory(Poll, PollOptions, fields=('option_text',), extra=5, can_delete=True)
-# class PollOptionsForm(ModelForm):
-#     class Meta:
-#         model = PollOptions
-#         fields = ['option_text']
 
 PollOptionFormset = forms.inlineformset_factory(Poll, PollOptions, fields=('option_text',), extra=5, can_delete=True)
 # class PollOptionsForm(ModelForm):

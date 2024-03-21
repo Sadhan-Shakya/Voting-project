@@ -3,9 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser,PollOptions,Poll
 # from .models import Category, CategoryItem
 
-from .models import UserModel
-
-admin.site.register(UserModel)
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('username','first_name', 'last_name', 'email', 'role','password', 'is_active', 'is_staff', 'is_superuser')
