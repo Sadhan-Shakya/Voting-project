@@ -1,14 +1,15 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
-from .models import CustomUser
+from .models import CustomUser,Poll,PollOptions
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from .forms import AddUserForm
+from .forms import AddUserForm,PollForm,PollOptionFormset
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import redirect
 
-from .models import UserModel
 
 # Create your views here.
 def landing_page(request):
@@ -34,6 +35,7 @@ def LoginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('pass')
         user = Emailbackend().authenticate(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             user_role = user.role
@@ -53,6 +55,23 @@ def LoginPage(request):
 def LogoutPage(request):
     logout(request)
     return redirect('login')
+
+def view_profile(request):
+    return render(request,'profile.html')
+
+# @login_required(login_url='login')
+def admin_dashboard(request):
+    if request.user.role != 'admin':
+        return HttpResponseForbidden("You are not authorized to access this page.")
+    return render(request,'admin_dashboard.html')
+
+# @login_required(login_url='login')
+# def candidate_dashboard(request):
+#     if request.user.role != 'candidate' and request.user.role !='admin':
+#         return HttpResponseForbidden("You are not authorized to access this page.")
+#     return render(request,'candidate_dashboard.html')
+
+# @login_required(login_url='login')
 def voter_dashboard(request):
     return render(request,'voter_dashboard.html')
 
@@ -70,59 +89,93 @@ def users_view(request):
 def analytics_view(request):
     return render(request,'analytics.html')
 
-
+def display_events(request):
+    return render(request,'events.html')
 def report_view(request):
     return render(request,'report.html')
-
-# class Users(View):
-#     def get(self, request):
-#         stu_data = Student.objects.all()
-#         return render(request, 'users.html', {'studata':stu_data})
     
 class Users(View):#crud opeation ko lagi nai ho
     def get(self, request):
-        UserModel_data = UserModel.objects.all()
+        UserModel_data = CustomUser.objects.all()
         return render(request, 'users.html', {'UserModeldata':UserModel_data})
     
-# class Users(View):
-#     def get(self, request):
-#         Custom_User = CustomUser.objects.all()
-#         return render(request, 'users.html', {'Custom_data': Custom_User})
     
+
 class Add_UserModel(View):
     def get(self, request):
         fm = AddUserForm()
-        return render(request, 'add_user.html',{'form':fm})
+        return render(request, 'add_user.html', {'form': fm})
     
     def post(self, request):
         fm = AddUserForm(request.POST)
         if fm.is_valid():
+            # Hash the password before saving
+            password = fm.cleaned_data['password']
+            hashed_password = make_password(password)
+            fm.instance.password = hashed_password
             fm.save()
             return redirect('users')
         else:
-            return render(request, 'add_user.html',{'form':fm})
+            return render(request, 'add_user.html', {'form': fm})
+
 
 # class Add_UserModel(View):
 class Delete_UserModel(View):
     def post(self, request):
         data = request.POST
         id = data.get('id')
-        UserModeldata = UserModel.objects.get(id=id)
+        UserModeldata = CustomUser.objects.get(id=id)
         UserModeldata.delete()
         return redirect('users')
 
 class Edit_UserModel(View):
     def get(self, request, id):
-        userm = UserModel.objects.get(id=id)
+        userm = CustomUser.objects.get(id=id)
         fm = AddUserForm(instance=userm)
         return render(request, 'edit_usermodel.html', {'form':fm})
         
     
     def post(self, request, id):
-        userm = UserModel.objects.get(id=id)
+        userm = CustomUser.objects.get(id=id)
         fm = AddUserForm(request.POST, instance=userm)
         if fm.is_valid():
+            password = fm.cleaned_data['password']
+            hashed_password = make_password(password)
+            fm.instance.password = hashed_password
             fm.save()
             return redirect('users')
+        
+class Polls(View):
+    def get(self,request):
+        poll_data = Poll.objects.all()
+        poll_options_data = PollOptions.objects.all()
+
+        return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+    
+
+def create_poll(request):
+    if request.method == 'POST':
+        poll_form = PollForm(request.POST)
+        option_formset = PollOptionFormset(request.POST)
+
+        if poll_form.is_valid() and option_formset.is_valid():
+            poll = poll_form.save()
+            options = option_formset.save(commit=False)
+            for option in options:
+                option.poll = poll
+                option.save()
+            return redirect('events')
+    else:
+        poll_form = PollForm()
+        option_formset = PollOptionFormset()
+
+        return render(request, 'create_poll.html', {'poll_form': poll_form, 'option_formset': option_formset})
+
+
+
+
+
+
+
 
 

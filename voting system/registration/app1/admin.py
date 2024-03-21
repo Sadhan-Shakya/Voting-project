@@ -1,26 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
-from .models import Profile
-from .models import Category, CategoryItem
+from .models import CustomUser,PollOptions,Poll
+# from .models import Category, CategoryItem
 
 from .models import UserModel
 
 admin.site.register(UserModel)
 
-class UserModel(UserAdmin):
-    list_display=['username','email','role','password']
-admin.site.register(CustomUser,UserModel)
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username','first_name', 'last_name', 'email', 'role','password', 'is_active', 'is_staff', 'is_superuser')
 
-admin.site.register(Profile)
+admin.site.register(CustomUser,CustomUserAdmin)
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug':('title',)}
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(CategoryItem)
-
+admin.site.register(Poll)
+admin.site.register(PollOptions)
 
 
 # 
