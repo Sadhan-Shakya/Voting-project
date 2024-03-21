@@ -116,6 +116,7 @@ class Edit_UserModel(View):
         userm = UserModel.objects.get(id=id)
         fm = AddUserForm(instance=userm)
         return render(request, 'edit_usermodel.html', {'form':fm})
+        
     
     def post(self, request, id):
         userm = UserModel.objects.get(id=id)

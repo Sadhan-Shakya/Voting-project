@@ -1,0 +1,14 @@
+{% block content %}  
+<form method="post">
+    {% csrf_token %}
+    <div class="edit-user-form">
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+    </div>
+    <div class="edit-user-form">
+        <label for="id_email">Email:</label>
+        {{ form.email }}
+    </div>
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

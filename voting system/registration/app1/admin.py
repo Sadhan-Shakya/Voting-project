@@ -6,9 +6,10 @@ from .models import Category, CategoryItem
 
 from .models import UserModel
 
+admin.site.register(UserModel)
 
 class UserModel(UserAdmin):
-    list_display=['username','email','role']
+    list_display=['username','email','role','password']
 admin.site.register(CustomUser,UserModel)
 
 admin.site.register(Profile)

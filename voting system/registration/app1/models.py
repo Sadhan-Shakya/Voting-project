@@ -60,3 +60,4 @@ class UserModel(models.Model): #for crud operation making a table usermodel for 
     username = models.CharField(max_length=60)
     email = models.CharField(max_length=100)  # Assuming email can be stored as a string
     role = models.CharField(max_length=100)
+    password = models.CharField(max_length=100, default='default_password')
