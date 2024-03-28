@@ -24,6 +24,7 @@ class Poll(models.Model):
 class PollOptions(models.Model):
     poll = models.ForeignKey(Poll, related_name='options', on_delete=models.CASCADE)
     option_text = models.CharField(max_length=100)
+    votes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.option_text

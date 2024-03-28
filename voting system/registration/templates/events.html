@@ -1,18 +1,38 @@
-{% extends 'base.html' %}
-{% block content %}
-<section class="container  ">
-    <div class="row justify-content-around text-center mt-5">
-        <div class="col-sm-8 border">
-            <h3>Poll</h3>
-        </div>
-        <div class="row justify-content-around mt-3">
-            <div class="col-sm-12">
-                <a href="{% url 'create_poll' %}" class="btn btn-primary float-start ">Create</a>
-            </div>
-        </div>
+{% extends 'base.html' %} {% block content %}
+<section class="container">
+  <div class="row justify-content-around text-center mt-5">
+    <div class="col-sm-8 border">
+      <h3>Poll</h3>
     </div>
+    <div class="row justify-content-around mt-3">
+      <div class="col-sm-12">
+        <a href="{% url 'create_poll' %}" class="btn btn-primary float-start"
+          >Create</a>
+      </div>
+    </div>
+  </div>
 
+  <div class="row justify-content-around mt-5">
+    {% for poll in Poll %}
+      <div class="col-sm-6"> <!-- Each poll takes up 6 columns on medium-sized screens and above -->
+        <div class="border border-5 border-dark p-4 mb-4">
+          <h4>{{ poll.question }}</h4>
+          <form method="post" action="{% url 'vote' %}">
+            {% csrf_token %}
+            {% for option in poll.options.all %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" value="{{ option.id }}" id="option{{ option.id }}">
+                <label class="form-check-label" for="option{{ option.id }}">{{ option.option_text }}</label>
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary mt-3">Vote</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
 </section>
 
-<!-- voting poll goes here -->
 {% endblock %}
+      <!-- <form method="post" action="{% url 'vote' poll.id %}"> -->
