@@ -1,171 +1,111 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 {% load static %}
 
-{% block content %}  
+{% block content %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'male user.png' %}" type="image/x-icon">
-    <title>View</title>
+    <link rel="shortcut icon" href="{% static 'male_user.png' %}" type="image/x-icon">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- Custom Styles -->
     <style>
-        /* CSS code goes here */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
-
-        * {
+        body {
+            /* font-family: Arial, Helvetica, sans-serif; */
+            background-color: #f8f9fa; /* Light gray background */
+            
+            color: #333; /* Dark text color */
             margin: 0;
             padding: 0;
-            /* font-family: montserrat, Arial, Helvetica, sans-serif; */
-        }
-
-        body {
-            height: 100%;
-            width: 100%;
-        
-            
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            
-            
-            
-        }
-        .profile-info{
-            padding-right: 200px;
-
         }
 
         header {
-            background-color: #edebeb;
-            display: flex;
-            padding: 0 4rem;
-            height: 5rem;
-            align-items: center;
+            background-color: #226A80; /* Blue header background */
+            padding: 20px 0;
+            text-align: center;
+            color: #fff; /* White text color */
         }
 
         .logo {
-            margin: 0 auto 0 0;
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 1.5rem;
             text-decoration: none;
-            color: black;
+            color: #fff; /* White color for logo */
         }
 
-        
-        
-
-        main {
-            display: flex;
-            margin-top: 50px;
-            padding-left: 70px;
-            
-        }
-
-       
-
-        .graphic-img {
-            height: auto;
-            width: 700px;
-            padding-right: 100px;
-           
-        }
-        .profile-info{
-            background-color: rgb(236, 232, 232);
-            border-radius: 50px;
-            
-            
-           
-            
-            
-            
-        }
-
-        
-
-        .user-profile-image-box {
-            padding-left: 10px;
-            margin: 0 5rem 0 5rem;
-            height:250px;
-        }
-
-        .profile-image {
-            height: 300px;
-            width: 150px;
-        }
-
-        .user-info {
-            margin: 0 2rem;
-        }
-
-        .label-data {
-            display: flex;
-            padding: 1.5rem .5rem;
-            justify-content: space-between;
+        .profile-container {
+            background-color: #fff; /* White background for profile */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Box shadow for depth */
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
         }
 
         .label {
-            font-weight:bolder;
-            font-size:x-large;
-            width: 40%;
-            padding-right: 9px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #000000; /* Blue color for labels */
+            margin-top: 10px;
         }
 
         .data {
-            width: 200%;
-            text-align: left;
-            border: 1px solid rgb(0, 0, 0);
-            font-weight: bold;
-            padding-left: 12px;
-            padding-top: 2px;
-            
-            
-            
+            font-size: 1rem;
+            margin-bottom: 20px; /* Add space between data */
+        }
+
+        .edit-profile-btn {
+            background-color: #007bff; /* Blue color for button */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            text-decoration: none;
+    
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            .profile-container {
+                margin-top: 20px; /* Adjust margin for smaller screens */
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="/" class="logo">USER PROFILE</a>
-        
-    </header>
+    <div class="card-header text-white" style="background-color: #226A80; ">
+        <h3 class="text-center">User Profile</h3>
+    </div>
 
-    <main>
-        <div class="graphics">
-            <img class='graphic-img' src="{% static '/profile-graphic.svg'%}" alt="">
-        </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="profile-container">
+                    <div class="user-info">
+                        <div class="label">Username:</div>
+                        <div class="data">{{ user.username }}</div>
 
-        <div class="profile-info">
-            <div class="user-profile-image-box">
-                <form class="user-profile-image-box" action="#">
-                    <label for="img"><img class='profile-image' src="{% static '/profile-icon.svg'%}" alt=""></label>
-                    <input style="visibility:hidden; width:0; height:0" type="file" id="img" name="img" accept="image/*">
-                    
-                </form>
-            </div>
-
-            <div class="user-info">
-                
-            
-                <div class="label-data">
-                    <div class="label">Username:</div>
-                    <div class="data">{{ user.username }}</div>
-                </div>
-            
-                <div class="label-data">
-                    <div class="label">Email:</div>
-                    <div class="data">{{ user.email }}</div>
+                        <div class="label">Email:</div>
+                        <div class="data">{{ user.email }}</div>
+                    </div>
+                    <a href="{% url 'profile_edit' %}" class="edit-profile-btn">Edit Profile</a>
                 </div>
             </div>
-            </div>
         </div>
-    </main>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 </body>
 </html>
 
 {% endblock %}
-
-
-
