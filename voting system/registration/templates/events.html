@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 <div class="card-header text-white" style="background-color: #226A80;">
@@ -23,6 +24,13 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-around mt-3">
+      <div class="col-sm-12">
+        <a href="{% url 'create_poll' %}" class="btn btn-primary float-start"
+          >Create</a>
+      </div>
+    </div>
+  </div>
 
     <div class="row justify-content-around mt-5">
         <div class="card-header text-white" style="background-color: #226A80;">
@@ -57,3 +65,4 @@
     </div>
 </section>
 {% endblock %}
+
