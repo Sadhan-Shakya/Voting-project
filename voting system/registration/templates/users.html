@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
+<div class="card-header text-white" style="background-color: #226A80;">
+    <h3 class="text-center">Users</h3>
+</div>
 <section class="container  ">
-    <div class="row justify-content-around text-center mt-5">
-        <div class="col-sm-8 border">
-            <h3>Users</h3>
-
-        </div>
+    <div class="row justify-content-around text-center">
+        
         <div class="row justify-content-around mt-3">
             <div class="col-sm-12">
                 <a href="{% url 'add_user' %}" class="btn btn-primary float-end ">Add</a>
@@ -23,6 +23,7 @@
                           <th scope="col">UserName</th>
                           <th scope="col">Email</th>
                           <th scope="col">Role</th>
+                          {% comment %} <th scope="col">password</th> {% endcomment %}
                           <th scope="col">Action</th>
                           
                       </thead>
@@ -33,6 +34,9 @@
                             <td>{{cdata.username}}</td>
                             <td>{{cdata.email}}</td>
                             <td>{{cdata.role}}</td>
+                            {% comment %} <td>{{cdata.password}}</td> {% endcomment %}
+
+
                             <td class="d-flex justify-content-center">
                                 <table>
                                     <tr>
