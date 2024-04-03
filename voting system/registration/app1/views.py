@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
+from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
 from .models import CustomUser,Poll,PollOptions
@@ -6,12 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from .forms import AddUserForm,PollForm,PollOptionFormset,UpdateUserForm
+from .forms import AddUserForm,PollForm,PollOptionFormset
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect
-from django.contrib import messages
-
-
 
 
 # Create your views here.
@@ -38,6 +35,7 @@ def LoginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('pass')
         user = Emailbackend().authenticate(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             user_role = user.role
@@ -50,13 +48,9 @@ def LoginPage(request):
             else:
                 return redirect('login')
         else:
-            # Display an error message on the login page
-            messages.error(request, 'Invalid username or password')
+            return HttpResponse("Username or password is incorrect")
 
-    return render(request, 'login.html')
-
-
-
+    return render(request,'login.html')
 
 def LogoutPage(request):
     logout(request)
@@ -139,6 +133,7 @@ class Edit_UserModel(View):
         userm = CustomUser.objects.get(id=id)
         fm = AddUserForm(instance=userm)
         return render(request, 'edit_usermodel.html', {'form':fm})
+        
     
     def post(self, request, id):
         userm = CustomUser.objects.get(id=id)
@@ -176,47 +171,11 @@ def create_poll(request):
 
         return render(request, 'create_poll.html', {'poll_form': poll_form, 'option_formset': option_formset})
 
-def profile_edit(request):
-        if request.user.is_authenticated:
-            current_user = CustomUser.objects.get(id=request.user.id)
-            user_form=UpdateUserForm(request.POST or None, instance=current_user)
 
-            if user_form.is_valid():
-                user_form.save()
 
-                login(request, current_user)
-                messages.success(request, "User has been updated")
-                return redirect('profile')
-            return render(request,"profile_edit.html", {'user_form':user_form})
-        else:
-            messages.success(request, "you must be login ")
-            return redirect('profile')
 
-            
-def display_events(request):
 
-    poll_data = Poll.objects.all()
-    poll_options_data = PollOptions.objects.all()
 
-    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
 
-def vote(request):
-    if request.method == 'POST':
-        option_id = request.POST.get('option')
-        print(option_id)
-        if option_id:
-            option = PollOptions.objects.get(id=option_id)
-            # Increment the vote count for the selected option
-            option.votes += 1
-            option.save()
-
-            return redirect('report')  # Redirect to a view that displays the results
-    # Handle invalid form submission or GET request
-    return redirect('events')
-
-def delete_poll(request, poll_id):
-    poll = get_object_or_404(Poll, pk=poll_id)
-    poll.delete()
-    return redirect('events')
 
 

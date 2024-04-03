@@ -1,59 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card-header text-white" style="background-color: #226A80;">
-    <h3 class="text-center">Your Choices Matter</h3>
-</div>
-<section class="container">
-    <div class="row justify-content-around text-center">
-        <header class="py-5">
-            <div class="container-fluid px-lg-5">
-                <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                    <div class="m-4 m-lg-5">
-                        <h1 class="display-5 fw-bold">Vote for Your Favorite Topic</h1>
-                        <p class="fs-4">It's time to make your voice heard and cast your vote for your favorite topics. From technology trends to cultural phenomena, your input will shape the discourse and highlight the subjects that matter most to you. Join us in celebrating diversity and sharing your preferences.</p>
-                        <a href="{% url 'create_poll' %}" class="btn btn-primary">Create</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+<section class="container  ">
+    <div class="row justify-content-around text-center mt-5">
+        <div class="col-sm-8 border">
+            <h3>Poll</h3>
+        </div>
         <div class="row justify-content-around mt-3">
             <div class="col-sm-12">
-                <!-- Add this div as a target for loading create poll content -->
-                <div id="create-poll-container"></div>
+                <a href="{% url 'create_poll' %}" class="btn btn-primary float-start ">Create</a>
             </div>
         </div>
     </div>
 
-    <div class="row justify-content-around mt-5">
-        <div class="card-header text-white" style="background-color: #226A80;">
-            <h3 class="text-center">Your Choices Matter</h3>
-        </div>
-        <!-- incase every q ko mathi blue heading lagaunu cha vanae {} tala lekhnae  -->
-        {% for poll in Poll %}
-        
-        <div class="col-sm-6" style="width: 90%; margin-bottom: 50px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); background-color: #ffffff; border-radius: 10px; padding: 20px;">
-            <div class="" style="background-color: #ffffff; padding: 30px;">
-                <h4 class="card-header text-white" style="background-color: #58747d;">{{ forloop.counter }}. {{ poll.question }}</h4>
-                <!-- Voting form -->
-                <form method="post" action="{% url 'vote' %}" class="mt-3 mx-auto" style="width: 100%; max-width: 400px;">
-                    {% csrf_token %}
-                    <h5 style="margin-bottom: 20px; font-size: 25px;">Choose One Option</h5>
-                    {% for option in poll.options.all %}
-                    <div class="form-check my-2" style="font-size: 20px;">
-                        <input class="form-check-input" type="radio" name="option" value="{{ option.id }}" id="option{{ option.id }}" style="width: 20px; height: 20px;">
-                        <label class="form-check-label" for="option{{ option.id }}" style="margin-left: 10px;">{{ option.option_text }}</label>
-                    </div>
-                    {% endfor %}
-                    <button type="submit" class="btn btn-primary mt-4" style="padding: 12px 24px; font-size: 18px; transition: background-color 0.3s, border-color 0.3s; background-color: #007bff; color: #fff; border: none; width: 100%; border-radius: 5px;">Vote</button>
-                </form>
-        
-                <form method="post" action="{% url 'delete_poll' poll.id %}" class="mt-3 mx-auto" style="width: 100%; max-width: 400px;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger" style="width: 100%; max-width: 400px; border-radius: 5px;">Delete</button>
-                </form>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
 </section>
+
+<!-- voting poll goes here -->
 {% endblock %}
