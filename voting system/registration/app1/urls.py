@@ -2,7 +2,12 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 from .views import Users
+<<<<<<< HEAD
 from .views import Delete_UserModel,Edit_UserModel,Add_UserModel,create_poll
+=======
+from .views import Delete_UserModel,Edit_UserModel,Add_UserModel,create_poll,profile_edit, Polls
+from .views import *
+>>>>>>> a449a630ad8c5ea69a4a80cfba6cef179709c991
 
 urlpatterns=[
     
@@ -19,10 +24,22 @@ urlpatterns=[
     path('events/',views.display_events,name='events'),
     path('analytics/', views.analytics_view, name='analytics'),
     path('report/', views.report_view, name='report'),
-
+    path('vote/', vote, name='vote'),
     path('add_user/', Add_UserModel.as_view(), name='add_user'),
     path('delete_usermodel/', Delete_UserModel.as_view(), name='delete_usermodel'),
     path('edit_usermodel/<int:id>/', Edit_UserModel.as_view(), name='edit_usermodel'),
     # path('index/',views.index,name='index'),
     path('create_poll/',views.create_poll, name='create_poll'),
+<<<<<<< HEAD
+=======
+    path('profile/', views.profile, name='profile'),
+    path('profile_edit/', views.profile_edit, name='profile_edit'),
+    path('display_polls/', Polls.as_view(), name='display_polls'),
+    path('vote/', views.vote, name='vote'),
+    path('delete_poll/<int:poll_id>/', views.delete_poll, name='delete_poll'),
+
+
+    path('display_polls/',views.Polls,name='display_polls')
+
+>>>>>>> a449a630ad8c5ea69a4a80cfba6cef179709c991
 ]

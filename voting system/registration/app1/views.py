@@ -83,14 +83,12 @@ def profile(request):
 # def index(request):
 #     return render(request,'index.html')
 
-def users_view(request):
-    return render(request,'users.html')
+# def users_view(request):
+#     return render(request,'users.html')
 
 def analytics_view(request):
     return render(request,'analytics.html')
 
-def display_events(request):
-    return render(request,'events.html')
 def report_view(request):
     return render(request,'report.html')
     
@@ -118,7 +116,6 @@ class Add_UserModel(View):
         else:
             return render(request, 'add_user.html', {'form': fm})
 
-
 # class Add_UserModel(View):
 class Delete_UserModel(View):
     def post(self, request):
@@ -145,12 +142,11 @@ class Edit_UserModel(View):
             fm.save()
             return redirect('users')
         
-class Polls(View):
-    def get(self,request):
-        poll_data = Poll.objects.all()
-        poll_options_data = PollOptions.objects.all()
+def Polls(request):
+    poll_data = Poll.objects.all()
+    poll_options_data = PollOptions.objects.all()
 
-        return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
     
 
 def create_poll(request):
@@ -170,12 +166,77 @@ def create_poll(request):
         option_formset = PollOptionFormset()
 
         return render(request, 'create_poll.html', {'poll_form': poll_form, 'option_formset': option_formset})
+    
+def display_events(request):
+
+    poll_data = Poll.objects.all()
+    poll_options_data = PollOptions.objects.all()
+
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+def profile_edit(request):
+        if request.user.is_authenticated:
+            current_user = CustomUser.objects.get(id=request.user.id)
+            user_form=UpdateUserForm(request.POST or None, instance=current_user)
 
+            if user_form.is_valid():
+                user_form.save()
+    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+
+def vote(request):
+    if request.method == 'POST':
+        option_id = request.POST.get('option')
+        print(option_id)
+        if option_id:
+            option = PollOptions.objects.get(id=option_id)
+            # Increment the vote count for the selected option
+            option.votes += 1
+            option.save()
+
+            return redirect('report')  # Redirect to a view that displays the results
+    # Handle invalid form submission or GET request
+    return redirect('events')
+
+                login(request, current_user)
+                messages.success(request, "User has been updated")
+                return redirect('profile')
+            return render(request,"profile_edit.html", {'user_form':user_form})
+        else:
+            messages.success(request, "you must be login ")
+            return redirect('profile')
+
+            
+def display_events(request):
+
+    poll_data = Poll.objects.all()
+    poll_options_data = PollOptions.objects.all()
+
+    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+
+def vote(request):
+    if request.method == 'POST':
+        option_id = request.POST.get('option')
+        print(option_id)
+        if option_id:
+            option = PollOptions.objects.get(id=option_id)
+            # Increment the vote count for the selected option
+            option.votes += 1
+            option.save()
+
+            return redirect('report')  # Redirect to a view that displays the results
+    # Handle invalid form submission or GET request
+    return redirect('events')
+
+def delete_poll(request, poll_id):
+    poll = get_object_or_404(Poll, pk=poll_id)
+    poll.delete()
+    return redirect('events')
+>>>>>>> a449a630ad8c5ea69a4a80cfba6cef179709c991
 
 

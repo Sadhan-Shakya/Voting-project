@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block content %}
 <section class="container  ">
@@ -11,8 +12,20 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-around mt-3">
+      <div class="col-sm-12">
+        <a href="{% url 'create_poll' %}" class="btn btn-primary float-start"
+          >Create</a>
+      </div>
+    </div>
+  </div>
 
 </section>
+<<<<<<< HEAD
 
 <!-- voting poll goes here -->
 {% endblock %}
+=======
+{% endblock %}
+
+>>>>>>> a449a630ad8c5ea69a4a80cfba6cef179709c991

@@ -9,9 +9,10 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser,CustomUserAdmin)
 
+class PollAdmin(admin.ModelAdmin):
+    list_display =[ 'id','question']
+admin.site.register(Poll,PollAdmin)
 
-admin.site.register(Poll)
-admin.site.register(PollOptions)
-
-
-# 
+class PollOptionsAdmin(admin.ModelAdmin):
+    list_display = ['id','poll','option_text','votes']
+admin.site.register(PollOptions,PollOptionsAdmin)
