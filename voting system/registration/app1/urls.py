@@ -30,7 +30,7 @@ urlpatterns=[
     path('create_poll/',views.create_poll, name='create_poll'),
     path('profile/', views.profile, name='profile'),
     path('profile_edit/', views.profile_edit, name='profile_edit'),
-    path('display_polls/', Polls.as_view(), name='display_polls'),
+    # path('display_polls/', Polls.as_view(), name='display_polls'),
     path('vote/', views.vote, name='vote'),
     path('delete_poll/<int:poll_id>/', views.delete_poll, name='delete_poll'),
 

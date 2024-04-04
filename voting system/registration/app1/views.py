@@ -177,6 +177,8 @@ def display_events(request):
     poll_data = Poll.objects.all()
     poll_options_data = PollOptions.objects.all()
 
+    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
+
 def profile_edit(request):
         if request.user.is_authenticated:
             current_user = CustomUser.objects.get(id=request.user.id)
@@ -184,22 +186,6 @@ def profile_edit(request):
 
             if user_form.is_valid():
                 user_form.save()
-    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
-
-def vote(request):
-    if request.method == 'POST':
-        option_id = request.POST.get('option')
-        print(option_id)
-        if option_id:
-            option = PollOptions.objects.get(id=option_id)
-            # Increment the vote count for the selected option
-            option.votes += 1
-            option.save()
-
-            return redirect('report')  # Redirect to a view that displays the results
-    # Handle invalid form submission or GET request
-    return redirect('events')
-
                 login(request, current_user)
                 messages.success(request, "User has been updated")
                 return redirect('profile')
@@ -208,14 +194,6 @@ def vote(request):
             messages.success(request, "you must be login ")
             return redirect('profile')
 
-            
-def display_events(request):
-
-    poll_data = Poll.objects.all()
-    poll_options_data = PollOptions.objects.all()
-
-    return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
-
 def vote(request):
     if request.method == 'POST':
         option_id = request.POST.get('option')
@@ -229,10 +207,8 @@ def vote(request):
             return redirect('report')  # Redirect to a view that displays the results
     # Handle invalid form submission or GET request
     return redirect('events')
-
+      
 def delete_poll(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
     poll.delete()
     return redirect('events')
-
-
