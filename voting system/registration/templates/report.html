@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-fluid px-4">
-
-    <h1>This is report page</h1>
-    
+<style>
+    /* Override Bootstrap styles for plot image */
+    .plot-image {
+        width: 70%; /* Set the width to 100% to fill its container */
+    }
+</style>
+<div class="container">
+    <h3>Poll Results</h3>
+    <!-- Iterate over the list of charts and display each chart -->
+    {% for poll_question, plot_data in plot_data_dict.items %}
+    <div>
+        <!-- Display the question -->
+        <h4>{{ poll_question }}</h4>
+        <!-- Display the chart -->
+        <img class="plot-image" src="data:image/png;base64,{{ plot_data }}" alt="Poll Results">
+    </div>
+    {% endfor %}
 </div>
 
-{% endblock %}
+{% endblock %}  

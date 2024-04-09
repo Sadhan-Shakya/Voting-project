@@ -21,8 +21,12 @@ urlpatterns=[
     # path('users/', views.users_view, name='users'),
     path('events/',views.display_events,name='events'),
     path('analytics/', views.analytics_view, name='analytics'),
-    path('report/', views.report_view, name='report'),
+    path('report/', views.report, name='report'),
+    path('vote/', vote, name='vote'),
+# =======
+#     path('report/', views.report_view, name='report'),
 
+# >>>>>>> main
     path('add_user/', Add_UserModel.as_view(), name='add_user'),
     path('delete_usermodel/', Delete_UserModel.as_view(), name='delete_usermodel'),
     path('edit_usermodel/<int:id>/', Edit_UserModel.as_view(), name='edit_usermodel'),
@@ -30,7 +34,7 @@ urlpatterns=[
     path('create_poll/',views.create_poll, name='create_poll'),
     path('profile/', views.profile, name='profile'),
     path('profile_edit/', views.profile_edit, name='profile_edit'),
-    path('display_polls/', Polls.as_view(), name='display_polls'),
+    # path('display_polls/', Polls.as_view(), name='display_polls'),
     path('vote/', views.vote, name='vote'),
     path('delete_poll/<int:poll_id>/', views.delete_poll, name='delete_poll'),
 
