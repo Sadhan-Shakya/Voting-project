@@ -16,6 +16,10 @@ class AddUserForm(ModelForm):
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
             'role': forms.Select(attrs={'class': 'form-control'}),
         }
+        help_texts = {
+            'username': '',  # Remove the help text
+        }
+    
 
 class PollForm(ModelForm):
     class Meta:
@@ -34,8 +38,6 @@ class ProfileEditForm(forms.ModelForm):
 
 class UpdateUserForm(UserChangeForm):
     email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}))
-    # first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}))
-    # last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}))
 
     class Meta:
         model = User
@@ -47,5 +49,7 @@ class UpdateUserForm(UserChangeForm):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'User Name'
         self.fields['username'].label = ''
-        self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+        self.fields['username'].help_text =  '<span class="form-text text-muted"><small>Enter your user name.</small></span>'
         self.fields['email'].help_text = '<span class="form-text text-muted"><small>Required. Enter a valid email address.</small></span>'
+        
+        self.fields.pop('password', None)

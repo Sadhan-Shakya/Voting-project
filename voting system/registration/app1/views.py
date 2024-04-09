@@ -10,6 +10,8 @@ from .forms import AddUserForm,PollForm,PollOptionFormset,UpdateUserForm
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 
 
 
@@ -97,15 +99,19 @@ def analytics_view(request):
 
 def display_events(request):
     return render(request,'events.html')
+
 def report_view(request):
     return render(request,'report.html')
-    
-class Users(View):#crud opeation ko lagi nai ho
+
+class Users(View):
+    @method_decorator(login_required(login_url='login'))
     def get(self, request):
-        UserModel_data = CustomUser.objects.all()
-        return render(request, 'users.html', {'UserModeldata':UserModel_data})
-    
-    
+        if request.user.is_superuser:
+            UserModel_data = CustomUser.objects.all()
+            return render(request, 'users.html', {'UserModeldata': UserModel_data})
+        else:
+            # Handle unauthorized access
+            return render(request, 'unauthorized.html')
 
 class Add_UserModel(View):
     def get(self, request):

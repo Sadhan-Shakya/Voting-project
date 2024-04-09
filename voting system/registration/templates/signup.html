@@ -175,7 +175,6 @@
                 var username = $('#username').val();
                 if (username.length < 5) {
                     $('#usernameError').removeClass('d-none'); // Show the error message
-                    $('#username').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
                     e.preventDefault(); // Prevent form submission
                 }
 
@@ -184,7 +183,6 @@
                 var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     $('#emailError').removeClass('d-none'); // Show the error message
-                    $('#email').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
                     e.preventDefault(); // Prevent form submission
                 }
 
@@ -193,7 +191,6 @@
                 var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
                 if (!passwordRegex.test(password)) {
                     $('#passwordError').removeClass('d-none'); // Show the error message
-                    $('#password1').addClass('is-invalid'); // Add Bootstrap is-invalid class for red color to input field
                     e.preventDefault(); // Prevent form submission
                 }
             });
