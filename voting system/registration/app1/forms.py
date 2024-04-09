@@ -1,15 +1,13 @@
 from django.forms import ModelForm
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
-from .models import CustomUser, Poll, PollOptions
-from django.contrib.auth.models import User
 
+from .models import CustomUser,Poll,PollOptions
 
 class AddUserForm(ModelForm):
     
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password', 'role')
+        fields =('username', 'email', 'password', 'role')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
@@ -31,7 +29,7 @@ class PollForm(ModelForm):
         model = Poll
         fields = ['question']
         widgets = {
-            'Question': forms.TextInput(attrs={'class': 'form-control'}),  # Should be 'question' instead of 'Question'
+            'Question':forms.TextInput(attrs={'class':'form-control'}),
         }
 
 PollOptionFormset = forms.inlineformset_factory(Poll, PollOptions, fields=('option_text',), extra=5, can_delete=True)

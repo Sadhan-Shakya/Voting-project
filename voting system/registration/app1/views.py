@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
+from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
 from .models import CustomUser,Poll,PollOptions
@@ -42,6 +42,7 @@ def LoginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('pass')
         user = Emailbackend().authenticate(username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             user_role = user.role
@@ -54,8 +55,7 @@ def LoginPage(request):
             else:
                 return redirect('login')
         else:
-            # Display an error message on the login page
-            messages.error(request, 'Invalid username or password')
+            return HttpResponse("Username or password is incorrect")
 
     return render(request, 'login.html')
 
@@ -145,6 +145,7 @@ class Edit_UserModel(View):
         userm = CustomUser.objects.get(id=id)
         fm = EditUserForm(instance=userm)
         return render(request, 'edit_usermodel.html', {'form':fm})
+        
     
     def post(self, request, id):
         userm = CustomUser.objects.get(id=id)
@@ -186,6 +187,14 @@ def create_poll(request):
 
     return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
 
+<<<<<<< HEAD
+
+
+
+
+
+
+=======
 def profile_edit(request):
         if request.user.is_authenticated:
             current_user = CustomUser.objects.get(id=request.user.id)

@@ -1,28 +1,25 @@
+
 {% extends 'base.html'%}
 
 {% block content %}
-<style>
-.custom-center {
-    margin-right: 50px; 
-}
-</style>
-
-<div class="card-header text-white" style="background-color: #226A80;">
-    <h3 class="text-center">Polls</h3>
-</div>
 <section class="container">
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             <div class="card shadow">
-                
-                <div class="card-body"style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+                <div class="card-header text-white" style="background-color: #226A80;">
+                    <h3 class="text-center">Polls</h3>
+                </div>
+                <div class="card-body">
                     <form method="post" action="" class="bg-white p-3 ">
                         {% csrf_token %}
-                        <div class="form-group text-center mb-5 custom-center"> <!-- Centered the question and label -->
+                        <div class="form-group text-center mb-4"> <!-- Centered the question and label -->
                             {{ poll_form.as_p }}
                             {{ option_formset.management_form }}
                         </div>
                         <div class="row mt-4 justify-content-center"> <!-- Center the row -->
+<<<<<<< HEAD
+                            <div class="col-md-6"> <!-- Change mx-auto to control width -->
+=======
                             <div class="col-md-5"> <!-- Change mx-auto to control width -->
                                 <h5 class="mb-3 text-center">Create Options</h5>
                                 {% for form in option_formset %}
@@ -46,3 +43,6 @@
     </div>
 </section>
 {% endblock %}
+
+
+

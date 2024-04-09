@@ -15,4 +15,63 @@
         </div>
     </div>
 </header>
+<!-- Page Content-->
+<section class="pt-4" id="votingSection">
+    <div class="container px-lg-5">
+        <!-- Page Features-->
+        <div class="row gx-lg-5">
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">Programming Languages</h2>
+                        <p class="mb-0">A programming language is a structured system enabling humans to communicate with computers by writ…</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg" href="/vote/programming-languages">Vote</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">Frontend Framework</h2>
+                        <p class="mb-0">A frontend framework is a pre-designed and structured collection of tools, libraries, and templates…</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg" href="/vote/frontend-framework">Vote</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">Backend Framework</h2>
+                        <p class="mb-0">A backend framework is a pre-built structure of tools, libraries, and patterns that streamlines the…</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg" href="/vote/backend-framework">Vote</a>
+                </div>
+            </div>
+
+            <!-- {% for category in categories  %}
+
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                        <h2 class="fs-4 fw-bold">{{category.title}}</h2>
+                        <p class="mb-0">{{category.description | truncatechars:100}}</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg" href="{% url 'detail' category.slug  %}">Vote</a>
+                </div>
+            </div> -->
+
+            <!-- {% endfor %} -->
+
+            
+
+        </div>
+    </div>
+</section>
+
 {% endblock %}
