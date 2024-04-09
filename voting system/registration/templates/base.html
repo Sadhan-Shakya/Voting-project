@@ -8,141 +8,172 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <title> Dashboard</title>
+    <title>Dashboard</title>
     <style>
-      /* Your custom styles here */
-:root {
-        --main-bg-color: #cbe0d8;
-        --main-text-color: #226A80;
-        --second-text-color: #545454;
-        --second-bg-color: #a8cbd527;
-      }
+        body {
+            background-color: rgba(45, 132, 159, 0.179);
+        }
+        :root {
+            --main-bg-color: #cbe0d8;
+            --main-text-color: #226A80;
+            --second-text-color: #545454;
+            --second-bg-color: #a8cbd527;
+        }
+        .primary-text {
+            color: var(--main-text-color);
+        }
+        .content {
+            margin-left: 20px;
+            padding: 0px 10px;
+            position: relative; /* Ensure content stays above sidebar */
+            z-index: 1; /* Ensure content stays above sidebar */
+        }
 
-      .primary-text {
-        color: var(--main-text-color);
-      }
-      .content{
-        margin-left: 20px;
-        padding: 0px 10px;
-      }
+        .second-text {
+            color: var(--second-text-color);
+        }
 
-      .second-text {
-        color: var(--second-text-color);
-      }
+        .primary-bg {
+            background-color: var(--main-bg-color);
+        }
 
-      .primary-bg {
-        background-color: var(--main-bg-color);
-      }
+        .secondary-bg {
+            background-color: var(--second-bg-color);
+        }
 
-      .secondary-bg {
-        background-color: var(--second-bg-color);
-      }
+        .rounded-full {
+            border-radius: 100%;
+        }
 
-      .rounded-full {
-        border-radius: 100%;
-      }
+        .logo a {
+            color: #226A80 !important;
+            text-decoration: none;
+        }
 
-
-.logo a{
-  color: #226A80 !important;
-  text-decoration: none;
-}
-      #wrapper {
-        overflow-x: hidden;
-        background-color: rgba(45, 132, 159, 0.179);
-      }
-
-      #sidebar-wrapper {
-        min-height: 100vh;
-        margin-left: -15rem;
-        -webkit-transition: margin 0.25s ease-out;
-        -moz-transition: margin 0.25s ease-out;
-        -o-transition: margin 0.25s ease-out;
-        transition: margin 0.25s ease-out;
-      }
-
-      #sidebar-wrapper .sidebar-heading {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.2rem;
-      }
-
-      #sidebar-wrapper .list-group {
-        width: 15rem;
-      }
-
-      #page-content-wrapper {
-        min-width: 100vw;
-        
-      }
-
-      #wrapper.toggled #sidebar-wrapper {
-        margin-left: 0;
-      }
-
-      #menu-toggle {
-        cursor: pointer;
-      }
-
-      .list-group-item {
-        border: none;
-        padding: 20px 30px;
-      }
-
-      .list-group-item.active {
-        background-color: transparent;
-        color: var(--main-text-color);
-        font-weight: bold;
-        border: none;
-      }
-
-      @media (min-width: 768px) {
         #sidebar-wrapper {
-          margin-left: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 15rem;
+            z-index: 0; /* Lower z-index for sidebar */
+            overflow-y: auto; /* Add scrollbar if sidebar is taller than the viewport */
+            transition: margin 0.25s ease-out; /* Add transition effect */
         }
 
         #page-content-wrapper {
-          min-width: 0;
-          width: 100%;
+            width: calc(100% - 15rem); /* Adjust the width based on sidebar width */
+            margin-left: 15rem; /* Same as sidebar width */
+            transition: margin 0.25s ease-out; /* Add transition effect */
         }
 
         #wrapper.toggled #sidebar-wrapper {
-          margin-left: -15rem;
+            margin-left: -15rem; /* Adjust the margin-left based on sidebar width */
         }
-      }
+
+        #wrapper.toggled #page-content-wrapper {
+            margin-left: 0; /* Reset margin-left when sidebar is toggled */
+        }
+
+        #menu-toggle {
+            cursor: pointer;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 20px 30px;
+        }
+
+        .list-group-item.active {
+            background-color: transparent;
+            color: var(--main-text-color);
+            font-weight: bold;
+            border: none;
+        }
+
+        @media (min-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+        }
+        @media (max-width: 767px) {
+    #sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        overflow-y: auto;
+        background-color: #fff;
+        transition: left 0.25s ease-in-out; /* Updated transition for smoother animation */
+        z-index: 1000; /* Ensure sidebar is above content */
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        left: 0; /* Adjust left position when sidebar is toggled */
+    }
+    #page-content-wrapper {
+        width: 100%;
+         /* Add padding to content area to compensate for sidebar width */
+        transition: padding-left 0.25s ease-in-out; /* Updated transition for smoother animation */
+        z-index: 900; /* Ensure content is above sidebar */
+        position: relative; /* Ensure content stays above sidebar */
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        padding-left: 0; /* Reset padding when sidebar is toggled */
+    }
+
+    #menu-toggle {
+        position: absolute;
+        left: 0;
+    }
+}
+        
     </style>
 </head>
-<body>
-    <div class="d-flex " id="wrapper">
-        <!-- Sidebar -->
-        <div class="bg-white " id="sidebar-wrapper">
-          <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
-              <i class="fas fa-user-secret me-2 "></i>Voton
-          </div>
-          <div class="list-group list-group-flush my-3">
-              <a href="{% url 'users' %}" class="list-group-item bg-transparent second-text fw-bold">
-                  <i class="fas fa-home me-2"></i>User
-              </a>
-              <a href="{% url 'voter_dashboard' %}" class="list-group-item bg-transparent second-text fw-bold">
-                  <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-              </a>
-              <a href="{% url 'profile' %}" class="list-group-item bg-transparent second-text fw-bold">
-                <i class="fas fa-user me-2"></i>Profile
-              <a href="{% url 'events' %}" class="list-group-item bg-transparent second-text fw-bold">
-                <i class="fas fa-calendar-alt me-2"></i>Events
-              </a>
 
-              <a href="{% url 'analytics' %}" class="list-group-item bg-transparent second-text fw-bold">
-                  <i class="fas fa-chart-line me-2"></i>Analytics
-              </a>
-              <a href="{% url 'report' %}" class="list-group-item bg-transparent second-text fw-bold">
-                  <i class="fas fa-paperclip me-2"></i>Reports
-              </a>
-              <a href="{% url 'logout' %}" class="list-group-item bg-transparent text-danger fw-bold">
-                  <i class="fas fa-power-off me-2"></i>Logout
-              </a>
-          </div>
-      </div>
-        <div id="page-content-wrapper">
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+                <i class="fas fa-user-secret me-2 "></i>Voton
+            </div>
+            <div class="list-group list-group-flush my-3">
+                <a href="{% url 'users' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-home me-2"></i>User
+                </a>
+                <a href="{% url 'voter_dashboard' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                </a>
+                <a href="{% url 'profile' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-user me-2"></i>Profile
+                </a>
+                <a href="{% url 'events' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-calendar-alt me-2"></i>Events
+                </a>
+
+                <a href="{% url 'analytics' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-chart-line me-2"></i>Analytics
+                </a>
+                <a href="{% url 'report' %}" class="list-group-item bg-transparent second-text fw-bold">
+                    <i class="fas fa-paperclip me-2"></i>Reports
+                </a>
+                <a href="{% url 'logout' %}" class="list-group-item bg-transparent text-danger fw-bold">
+                    <i class="fas fa-power-off me-2"></i>Logout
+                </a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <div class="" id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
@@ -171,15 +202,12 @@
                     </ul>
                 </div>
             </nav>
-      
-    
-                    
-                    {% block content %}
-                    {% endblock %}
-
+            {% block content %}
+            {% endblock %}
         </div>
-      </div>
+    </div>
 
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
@@ -189,7 +217,6 @@
             el.classList.toggle("toggled");
         };
     </script>
-
-  </body>
+</body>
 
 </html>
