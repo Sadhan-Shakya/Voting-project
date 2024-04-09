@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render,HttpResponse,redirect, get_object_or_404
 from django.contrib.auth import authenticate,login,logout
 from app1.emailbackend import  Emailbackend
 from .models import CustomUser,Poll,PollOptions
@@ -6,9 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from .forms import AddUserForm,PollForm,PollOptionFormset
+from .forms import AddUserForm,PollForm,PollOptionFormset,UpdateUserForm,EditUserForm
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect
+from django.contrib import messages
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
 
 
 # Create your views here.
@@ -35,7 +40,6 @@ def LoginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('pass')
         user = Emailbackend().authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             login(request, user)
             user_role = user.role
@@ -48,9 +52,11 @@ def LoginPage(request):
             else:
                 return redirect('login')
         else:
-            return HttpResponse("Username or password is incorrect")
+            # Display an error message on the login page
+            messages.error(request, 'Invalid username or password')
 
-    return render(request,'login.html')
+    return render(request, 'login.html')
+
 
 def LogoutPage(request):
     logout(request)
@@ -128,18 +134,20 @@ class Delete_UserModel(View):
 class Edit_UserModel(View):
     def get(self, request, id):
         userm = CustomUser.objects.get(id=id)
-        fm = AddUserForm(instance=userm)
+        fm = EditUserForm(instance=userm)
         return render(request, 'edit_usermodel.html', {'form':fm})
     
     def post(self, request, id):
         userm = CustomUser.objects.get(id=id)
-        fm = AddUserForm(request.POST, instance=userm)
+        fm = EditUserForm(request.POST, instance=userm)
         if fm.is_valid():
-            password = fm.cleaned_data['password']
-            hashed_password = make_password(password)
-            fm.instance.password = hashed_password
+            # password = fm.cleaned_data['password']
+            # hashed_password = make_password(password)
+            # fm.instance.password = hashed_password
             fm.save()
             return redirect('users')
+        else:
+            return render(request, 'edit_usermodel.html', {'form':fm})
         
 def Polls(request):
     poll_data = Poll.objects.all()
@@ -173,6 +181,21 @@ def display_events(request):
 
     return render(request,'events.html',{'Poll':poll_data,'Poll_options':poll_options_data})
 
+def profile_edit(request):
+        if request.user.is_authenticated:
+            current_user = CustomUser.objects.get(id=request.user.id)
+            user_form=UpdateUserForm(request.POST or None, instance=current_user)
+
+            if user_form.is_valid():
+                user_form.save()
+                login(request, current_user)
+                messages.success(request, "User has been updated")
+                return redirect('profile')
+            return render(request,"profile_edit.html", {'user_form':user_form})
+        else:
+            messages.success(request, "you must be login ")
+            return redirect('profile')
+
 def vote(request):
     if request.method == 'POST':
         option_id = request.POST.get('option')
@@ -183,13 +206,50 @@ def vote(request):
             option.votes += 1
             option.save()
 
-            return redirect('report')  # Redirect to a view that displays the results
+            return HttpResponse("you have voted successfully. Please check the report page for the result.")  # Redirect to a view that displays the results
     # Handle invalid form submission or GET request
+    return redirect('events')
+      
+def delete_poll(request,poll_id):
+    poll = get_object_or_404(Poll, pk=poll_id)
+    poll.delete()
     return redirect('events')
 
 
 
 
+def report(request):
+    # Retrieve poll data from the database
+    poll_options = PollOptions.objects.all()
 
+    # Convert poll data to a DataFrame
+    df = pd.DataFrame(list(poll_options.values()))
 
+    # Group poll options by poll question
+    grouped_options = df.groupby('poll_id')
 
+    # Dictionary to hold plot data for each poll question
+    plot_data_dict = {}
+
+    # Generate a bar chart for each poll question
+    for poll_id, group_df in grouped_options:
+        plt.figure(figsize=(8, 6))  # Set the size of the plot
+        group_df.plot(kind='bar', x='option_text', y='votes', rot=45)  # Create a bar chart
+        plt.xlabel('Poll Options')  # Label for the x-axis
+        plt.ylabel('Vote Counts')  # Label for the y-axis
+        plt.title(f'Poll Results')  # Title of the plot
+        plt.tight_layout() 
+
+        # Convert the plot to a base64-encoded string
+        buffer = io.BytesIO()  # Create a memory 
+        plt.savefig(buffer, format='png')  # Save the plot in PNG format to the buffer
+        buffer.seek(0)  # Reset the buffer position to the start
+        plot_data = base64.b64encode(buffer.read()).decode()  # Encode the plot as base64
+        buffer.close()  # Close the buffer to free memory
+
+        poll_question = Poll.objects.get(pk=poll_id).question
+        # Store plot data in the dictionary
+        plot_data_dict[poll_question] = plot_data
+
+    # Pass the dictionary containing plot data for all poll questions to the template
+    return render(request, 'report.html', {'plot_data_dict': plot_data_dict})

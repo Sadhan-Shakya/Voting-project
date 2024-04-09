@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'registration.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'voting_system',
+        'NAME':'voting_system_management',
         'USER':'root',
         'PASSWORD':'',
         'HOST':'localhost',
