@@ -3,7 +3,7 @@ from django.urls import path,include
 from . import views
 from .views import Users
 from .views import Delete_UserModel,Edit_UserModel,Add_UserModel,create_poll,profile_edit, Polls
-from .views import *
+
 
 urlpatterns=[
     
@@ -23,6 +23,10 @@ urlpatterns=[
     path('analytics/', views.analytics_view, name='analytics'),
     path('report/', views.report, name='report'),
     path('vote/', vote, name='vote'),
+# =======
+#     path('report/', views.report_view, name='report'),
+
+# >>>>>>> main
     path('add_user/', Add_UserModel.as_view(), name='add_user'),
     path('delete_usermodel/', Delete_UserModel.as_view(), name='delete_usermodel'),
     path('edit_usermodel/<int:id>/', Edit_UserModel.as_view(), name='edit_usermodel'),
@@ -35,6 +39,4 @@ urlpatterns=[
     path('delete_poll/<int:poll_id>/', views.delete_poll, name='delete_poll'),
 
 
-    path('display_polls/',views.Polls,name='display_polls')
-
-]
+    ]
